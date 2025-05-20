@@ -23,7 +23,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 
 // api's
@@ -34,7 +34,7 @@ app.use("/api/v1/application", applicationRoute);
 
 
 
-app.listen(PORT,()=>{
+app.listen(8000,()=>{
     connectDB();
-    console.log(`Server running at port ${PORT}`);
+    console.log(`Server running at port 8000`);
 })

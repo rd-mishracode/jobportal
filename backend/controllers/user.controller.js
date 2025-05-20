@@ -15,6 +15,9 @@ export const register = async (req, res) => {
             });
         };
         const file = req.file;
+           if (!file) {
+        return res.status(400).json({ error: "File not provided" });
+    }
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
@@ -81,7 +84,7 @@ export const login = async (req, res) => {
         const tokenData = {
             userId: user._id
         }
-        const token = await jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: '1d' });
+        const token = await jwt.sign(tokenData, 'i am rishab', { expiresIn: '1d' });
 
         user = {
             _id: user._id,
