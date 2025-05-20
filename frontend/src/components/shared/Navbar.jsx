@@ -6,7 +6,6 @@ import { LogOut, User2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { USER_API_END_POINT } from '@/utils/constant'
 import { setUser } from '@/redux/authSlice'
 import { toast } from 'sonner'
 
@@ -16,18 +15,24 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
-        try {
-            const res = await axios.get(`http://localhost:3000/api/v1/user/logout`, { withCredentials: true });
-            if (res.data.success) {
-                dispatch(setUser(null));
-                navigate("/");
-                toast.success(res.data.message);
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error(error.response.data.message);
+    try {
+        const res = await axios.get("http://localhost:8000/api/v1/user/logout", {
+            withCredentials: true,
+        });
+
+        if (res.data.success) {
+            dispatch(setUser(null));
+            navigate("/");
+            toast.success(res.data.message);
+        } else {
+            toast.error("Logout failed. Please try again.");
         }
+    } catch (error) {
+        console.error(error);
+        toast.error(error.response?.data?.message || "Something went wrong");
     }
+};
+
     return (
         <div className='bg-white'>
             <div className='flex items-center justify-between mx-auto max-w-7xl h-16'>
